@@ -71,11 +71,13 @@ def open_close():
 
 @app.route("/open-box")
 def open_box():
+    os.system("~/open_box.py")
     return "Box open script called"
 
 
 @app.route("/close-box")
 def close_box():
+    os.system("~/close_box.py")
     return "Box close script called"
 
 
