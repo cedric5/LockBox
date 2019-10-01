@@ -1,0 +1,15 @@
+      <div class="container-fluid">
+        <h1 class="mt-4">Lockbox status</h1>
+          <hr>
+          {% if box_status == 'closed' %}
+              <h3> The box is currently <font color="red">{{ box_status }}</font></h3>
+          {% else %}
+              <h3> The box is currently <font color="green">{{ box_status }}</font></h3>
+          {% endif %}
+          {% if box_status == 'closed' %}
+            <p>The box will open on {{ open_close_time }}</p>
+          {% else %}
+            <p>The box will close on {{ open_close_time }}</p>
+          {% endif %}
+        <p> That means there are 1 day(s) and 4 hours left</p>
+      </div>
