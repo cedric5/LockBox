@@ -30,6 +30,8 @@
                 <a href="/open-close" class="list-group-item list-group-item-action bg-light">Set open/close time</a>
                 <a href="/wifi" class="list-group-item list-group-item-action bg-light">Wifi settings</a>
                 <a href="/reboot" class="list-group-item list-group-item-action bg-light">Reboot</a>
+                <a href="#" id=open-box class="list-group-item list-group-item-action bg-light">Open box</a>
+                <a href="#" id=close-box class="list-group-item list-group-item-action bg-light">Close box</a>
             </div>
         </div>
     <!-- /#sidebar-wrapper -->
@@ -62,9 +64,27 @@
     });
   </script>
 
-        <script type="text/javascript">
-
-        </script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type=text/javascript>
+        $(function() {
+          $('a#test').bind('click', function() {
+            $.getJSON('/box-open',
+                function(data) {
+              //do nothing
+            });
+            return false;
+          });
+        });
+        $(function() {
+          $('a#close-box').bind('click', function() {
+            $.getJSON('/box-close',
+                function(data) {
+              //do nothing
+            });
+            return false;
+          });
+        });
+</script>
 
 </body>
 
