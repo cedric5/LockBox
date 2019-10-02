@@ -1,47 +1,43 @@
-<style>
 
-		.form-control[readonly] {
-			background: none;
-		}
-
-		@media(max-width: 414px) {
-			.form-control {
-				font-size: 12px;
-			}
-		}
-
-
-		@media(max-width: 320px) {
-			.col-xs-6 {
-				padding: 0 5px;
-			}
-		}
-</style>
 <div class="container-fluid">
         <h1 class="mt-1">Open/Close settings</h1>
           <hr>
           <h3>Set open time</h3>
-			<input readonly class="form-control" type="text" id="date-group1" placeholder="YYYY-MM-DD hh:mm">
+			<input readonly class="form-control" type="text" id="close-time-box" placeholder="YYYY-MM-DD hh:mm">
           <hr>
           <h3>Set close time</h3>
-				<input readonly class="form-control" type="text" id="date-group2" placeholder="YYYY-MM-DD hh:mm">
+				<input readonly class="form-control" type="text" id="open-time-box" placeholder="YYYY-MM-DD hh:mm">
           <hr>
-          <button type="button" class="btn btn-success btn-block">Save</button>
+          <button type="button" id="save" class="btn btn-success btn-block">Save</button>
 </div>
 	<script>
 		window.onload = function() {
 			new Rolldate({
-				el: '#date-group1',
+				el: '#close_time_box',
 				format: 'YYYY-MM-DD hh:mm',
 				beginYear: 2000,
 				endYear: 2100
 			})
 			new Rolldate({
-				el: '#date-group2',
+				el: '#open_time_box',
 				format: 'YYYY-MM-DD hh:mm',
 				beginYear: 2000,
 				endYear: 2100
 			})
 		}
 	</script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type=text/javascript>
+   var open_time = $("#open-time-box").val();
+   var close_time = $("#close-time-box").val();
+        $(function() {
+          $('button#save').bind('click', function() {
+            $.getJSON('/set-time?open=' + open_time.trim() + '&close=' + close_time.trim(),
+                function(data) {
+              //do nothing
+            });
+            return false;
+          });
+        });
+</script>
 <script type="text/javascript" src="static/js/rolldate.min.js"></script>

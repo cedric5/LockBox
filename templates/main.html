@@ -17,7 +17,25 @@
   <link href="static/css/simple-sidebar.css" rel="stylesheet">
 
 </head>
+<style>
 
+		.form-control[readonly] {
+			background: none;
+		}
+
+		@media(max-width: 414px) {
+			.form-control {
+				font-size: 12px;
+			}
+		}
+
+
+		@media(max-width: 320px) {
+			.col-xs-6 {
+				padding: 0 5px;
+			}
+		}
+</style>
 <body>
 
   <div class="d-flex" id="wrapper">
@@ -68,7 +86,7 @@
 <script type=text/javascript>
         $(function() {
           $('a#test').bind('click', function() {
-            $.getJSON('/box-open',
+            $.getJSON('/open-box',
                 function(data) {
               //do nothing
             });
@@ -77,7 +95,7 @@
         });
         $(function() {
           $('a#close-box').bind('click', function() {
-            $.getJSON('/box-close',
+            $.getJSON('/close-box',
                 function(data) {
               //do nothing
             });

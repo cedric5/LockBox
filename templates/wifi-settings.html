@@ -1,5 +1,12 @@
-      <div class="container-fluid">
-        <h1 class="mt-4">Wifi Settings</h1>
-        <p>The starting state of the menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will change.</p>
-        <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>. The top navbar is optional, and just for demonstration. Just create an element with the <code>#menu-toggle</code> ID which will toggle the menu when clicked.</p>
-      </div>
+<div class="container-fluid">
+        <h1 class="mt-1">Wifi settings</h1>
+        <h8>Changing these settings will reboot the LockBox</h8>
+          <hr>
+          <h3>Wifi network name</h3>
+			<input class="form-control" type="text" id="close_time_box" placeholder="{{wifi_ssid}}">
+          <hr>
+          <h3>Wifi network password</h3>
+				<input class="form-control" type="text" id="open_time_box" placeholder="{{wifi_wpa2}}">
+          <hr>
+          <button type="button" id="save" class="btn btn-success btn-block">Save</button>
+</div>

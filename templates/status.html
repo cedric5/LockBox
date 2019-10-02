@@ -8,8 +8,8 @@
           {% endif %}
           {% if box_status == 'closed' %}
             <p>The box will open on {{ open_close_time }}</p>
-          {% else %}
+          {% elif box_status == 'open' %}
             <p>The box will close on {{ open_close_time }}</p>
           {% endif %}
-        <p> That means there are 1 day(s) and 4 hours left</p>
+        <p> That means there are {{ time_left }} left for the box to {{ box_status }}</p>
       </div>
