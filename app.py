@@ -1,10 +1,8 @@
 from flask import Flask, render_template
-
-app = Flask(__name__)
-import subprocess
 import os
 import datetime
-import time
+
+app = Flask(__name__)
 
 
 def render_page(page, page_data):
@@ -15,58 +13,45 @@ def render_page(page, page_data):
 @app.route("/")
 def show_main_page():
     now = datetime.datetime.now()
-    timeString = now.strftime("%Y-%m-%d %H:%M")
-    templateData = {
-        'content': render_page("status",{'box_status': 'open', 'open_close_time': '10-07-2019 - 18:00'})
+    template_data = {
+        'content': render_page("status", {'box_status': 'open', 'open_close_time': '10-07-2019 - 18:00'})
     }
-    return render_template('main.html', **templateData)
+    return render_template('main.html', **template_data)
 
 
 def render_status_page():
-    templateData = {
+    template_data = {
         'box_status': 'closed',
     }
-    renderd = render_template('status.html', **templateData)
-    return renderd
+    rendered = render_template('status.html', **template_data)
+    return rendered
 
 
 @app.route("/wifi")
 def show_wifi_page():
-    now = datetime.datetime.now()
-    timeString = now.strftime("%Y-%m-%d %H:%M")
     content_html = open("templates/wifi-settings.html").read()
-    templateData = {
-        'title': 'HELLO!',
-        'time': timeString,
+    template_data = {
         'content': content_html
     }
-    return render_template('main.html', **templateData)
+    return render_template('main.html', **template_data)
 
 
 @app.route("/reboot")
 def show_reboot_page():
-    now = datetime.datetime.now()
-    timeString = now.strftime("%Y-%m-%d %H:%M")
     content_html = open("templates/reboot.html").read()
-    templateData = {
-        'title': 'HELLO!',
-        'time': timeString,
+    template_data = {
         'content': content_html
     }
-    return render_template('main.html', **templateData)
+    return render_template('main.html', **template_data)
 
 
 @app.route("/open-close")
 def open_close():
-    now = datetime.datetime.now()
-    timeString = now.strftime("%Y-%m-%d %H:%M")
     content_html = open("templates/open-close-settings.html").read()
-    templateData = {
-        'title': 'HELLO!',
-        'time': timeString,
+    template_data = {
         'content': content_html
     }
-    return render_template('main.html', **templateData)
+    return render_template('main.html', **template_data)
 
 
 @app.route("/open-box")
