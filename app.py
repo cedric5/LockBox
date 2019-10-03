@@ -111,10 +111,12 @@ def show_reboot_page():
 def show_reboot_device_poge():
     return render_template("wait-for-reboot.html")
 
+
 @app.route("/reboot-device")
 def reboot_device():
     os.system("sudo reboot")
-
+    print('rebooting')
+    return "rebooting"
 
 @app.route("/open-close")
 def show_open_close_page():

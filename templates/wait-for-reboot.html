@@ -113,10 +113,14 @@ h3 { color: #111;
 </div>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>
-    setInterval(checkServerStatus, 5000);
+        setInterval(checkServerStatus, 6000);
+        let call_reboot_interval = setInterval(call_reboot, 3000);
+
+        function call_reboot(){$.ajax('/reboot-device', {success: function(response){}})};
 
  function checkServerStatus()
 {
+    clearInterval(call_reboot_interval);
     var url = "http://{{ request.host.split(':')[0] }}:5000/";
     var img = document.body.appendChild(document.createElement("img"));
     img.onload = function()
@@ -130,9 +134,4 @@ h3 { color: #111;
     };
     img.src = "http://{{ request.host.split(':')[0] }}:5000/static/square.png";
 }
-</script>
-
-<script>
-    setInterval(checkServerStatus, 3000);
-    function call_reboot(){$.ajax('/reboot-device', {success: function(response){}})};
 </script>
