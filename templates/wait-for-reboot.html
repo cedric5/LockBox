@@ -131,3 +131,8 @@ h3 { color: #111;
     img.src = "http://{{ request.host.split(':')[0] }}:5000/static/square.png";
 }
 </script>
+
+<script>
+    function call_reboot(){$.ajax('/reboot-device', {success: function(response){}})};
+    call_reboot();
+</script>

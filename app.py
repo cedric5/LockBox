@@ -105,10 +105,15 @@ def show_reboot_page():
         'content': content_html
     }
     return render_template('main.html', **template_data)
+
+
+@app.route("/reboot-device-loader")
+def show_reboot_device_poge():
+    return render_template("wait-for-reboot.html")
+
 @app.route("/reboot-device")
 def reboot_device():
-    os.system("reboot")
-    return render_template("wait-for-reboot.html")
+    os.system("sudo reboot")
 
 
 @app.route("/open-close")
