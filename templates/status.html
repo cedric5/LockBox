@@ -1,15 +1,54 @@
-      <div class="container-fluid">
-        <h1 class="mt-4">Lockbox status</h1>
-          <hr>
-          {% if box_status == 'closed' %}
-              <h3> The box is currently <font color="red">{{ box_status }}</font></h3>
-          {% else %}
-              <h3> The box is currently <font color="green">{{ box_status }}</font></h3>
-          {% endif %}
-          {% if box_status == 'closed' %}
-            <p>The box will open on {{ open_close_time }}</p>
-          {% elif box_status == 'open' %}
-            <p>The box will close on {{ open_close_time }}</p>
-          {% endif %}
-        <p> That means there are {{ time_left }} left for the box to {{ box_status }}</p>
-      </div>
+<style>
+    @media only screen and (max-width: 1200px) {
+        .countdown_card {}
+    }
+
+    .countdown_card {
+        min-height: 5000px;
+    }
+
+</style>
+<div class="container-fluid">
+    <br>
+    <div class="card-deck">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Lockbox status</h5>
+      <p>
+                          {% if box_status == 'closed' %}
+                The box is currently <span style="color: red; ">{{ box_status }}</span>
+                {% else %}
+                The box is currently <span style="color: green; ">{{ box_status }}</span>
+                {% endif %}.</p>
+                            <p class="card-text">
+                                {% if box_status == 'closed' %} {% if open_time %}
+                                <p>The box will open on {{ open_time }}</p>
+                                {% endif %} {% elif box_status == 'open' %} {% if close_time %}
+                                <p>The box will close on {{ close_time }}</p>
+                                {% endif %} {% endif %}
+                            </p>
+                            <a href="/open-close" class="btn btn-primary btn-block">Go to open/close settings</a>
+    </div>
+  </div>
+  <div class="card text-center">
+    <div class="card-body">
+        <br>
+      <h5 class="card-title">Countdown</h5>
+      <p class="card-text">the box will {{ future_box_status }} in:</p>
+        <p class="card-text">{{ time_left[0] }} days {{ time_left[1] }} hours {{ time_left[2] }} minutes and {{ time_left[3] }}
+</p>
+    </div>
+  </div>
+  <div class="card text-center">
+    <div class="card-body">
+        <br>
+      <h5 class="card-title">Wifi info</h5>
+      <p class="card-text">Network name: {{ wifi_ssid }}</p>
+        <p class="card-text">
+        Signal strength: 100%
+        </div>
+        </p>
+    </div>
+  </div>
+</div>
+</div>

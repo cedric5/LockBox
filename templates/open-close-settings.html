@@ -1,18 +1,50 @@
-
 <div class="container-fluid">
-        <h1 class="mt-1">Open/Close settings</h1>
+    <h1 class="mt-1">Open/Close settings</h1>
+    {% if alert  %}
+    <div class="alert alert-{{alert_type}}" role="alert">
+        {{ alert }}
+    </div>
+    {% endif %}
+    <div id="alert" class="alert alert-info" role="alert" style="display:none" >
+        {{ alert }}
+    </div>
             <h8>You will be able to change the open and close times until the box closes on the set closing date.
                 <br>
                 Whenever the box closes there is <b>no way</b> to open it before the open date is reached.
             </h8>
           <hr>
+          <h3>Set closing time</h3>
+			<input readonly class="form-control" type="text" id="close-time-box" value="{{ close_time }}">
+          <hr>
           <h3>Set open time</h3>
-			<input readonly class="form-control" type="text" id="close-time-box" placeholder="YYYY-MM-DD hh:mm">
+				<input readonly class="form-control" type="text" id="open-time-box" value="{{ open_time }}">
           <hr>
-          <h3>Set close time</h3>
-				<input readonly class="form-control" type="text" id="open-time-box" placeholder="YYYY-MM-DD hh:mm">
-          <hr>
+            {% if box_status == "closed" %}
+          <button type="button" id="save" class="btn btn-success btn-block" disabled>Save</button>
+            {% else %}
           <button type="button" id="save" class="btn btn-success btn-block">Save</button>
+            {% endif %}
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Times are set!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Open and close settings saved!
+      </div>
+      <!--<div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>-->
+    </div>
+  </div>
+</div>
 </div>
 	<script>
 		window.onload = function() {
@@ -30,16 +62,21 @@
 			})
 		}
 	</script>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type=text/javascript>
-   var open_time = $("#open-time-box").val();
-   var close_time = $("#close-time-box").val();
         $(function() {
           $('button#save').bind('click', function() {
-            $.getJSON('/set-time?open=' + open_time.trim() + '&close=' + close_time.trim(),
-                function(data) {
-              //do nothing
-            });
+              var open_time = $("#open-time-box").val();
+              var close_time = $("#close-time-box").val();
+               // $('#exampleModal').modal('show');
+                $.ajax('/set-time?open=' + open_time.trim() + '&close=' + close_time.trim(), {
+                     success: function(response){
+                        console.log(response)
+                        //changed original code from ".html(response)" to ".html(response.sentence)"
+                        $('#alert').html(response).fadeIn();
+                        $('#alert').show();
+
+                      }
+                    })
             return false;
           });
         });

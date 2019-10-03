@@ -2,9 +2,10 @@ import json
 from datetime import date
 from flask import Flask, render_template
 from flask import request
-from dateutil import parser
+from dateutil import relativedelta
 import pdb
-# from flask_debug import Debug
+from datetime import datetime, time
+from time import sleep
 import os
 import datetime
 
@@ -31,29 +32,50 @@ def render_page(page, page_data):
     return rendered
 
 
+def dateDiffInSeconds(date1, date2):
+    timedelta = date2 - date1
+    return timedelta.days * 24 * 3600 + timedelta.seconds
+
+
+def daysHoursMinutesSecondsFromSeconds(seconds):
+    minutes, seconds = divmod(seconds, 60)
+    hours, minutes = divmod(minutes, 60)
+    days, hours = divmod(hours, 24)
+    return (days, hours, minutes, seconds)
+
+
 def time_left(box_status):
-    open_close_date = parser.parse(get_config(box_status + '_time'))
-    today = datetime.datetime.now()
-    if box_status == "closed":
-        delta = today - open_close_date
-    elif box_status == "open":
-        delta = open_close_date - today
-    else:
-        return "error date not set"
-    hours = delta.seconds / 3600
-    seconds = (delta.microseconds / 1000) / 1000
-    return str(delta.days) + ' days ' + str(round(hours)) + ' hours and ' + str(round(seconds)) + ' seconds'
+    if box_status == "closed": open_close_time = get_config('open_time')
+    if box_status == "open": open_close_time = get_config('close_time')
+
+    time_to_compare = datetime.datetime.strptime(open_close_time, '%Y-%m-%d %H:%M')
+    now = datetime.datetime.now()
+    return daysHoursMinutesSecondsFromSeconds(dateDiffInSeconds(now, time_to_compare))
 
 
 @app.route("/")
 def show_main_page():
     box_status = get_config("box_status")
-    open_close_time = get_config(box_status + '_time')
-    time_left_days = time_left(box_status)
+    if box_status == "closed":
+        future_box_status = 'open'
+    else:
+        future_box_status = "close"
+
+    open_time = get_config("open_time")
+    close_time = get_config("close_time")
+    wifi_ssid = get_config("wifi_ssid")
+    wifi_strength = get_config("wifi_strength")
+    time_left_arr = time_left(box_status)
+    print(time_left_arr)
 
     template_data = {
-        'content': render_page("status", {'box_status': get_config("box_status"), 'open_close_time': open_close_time,
-                                          "time_left": time_left_days})
+        'content': render_page("status",
+                               {'box_status': box_status,
+                                "future_box_status": future_box_status,
+                                'open_time': open_time,
+                                "close_time": close_time,
+                                "time_left": time_left_arr,
+                                "wifi_ssid": wifi_ssid})
     }
 
     return render_template('main.html', **template_data)
@@ -83,35 +105,61 @@ def show_reboot_page():
         'content': content_html
     }
     return render_template('main.html', **template_data)
+@app.route("/reboot-device")
+def reboot_device():
+    os.system("reboot")
+    return render_template("wait-for-reboot.html")
 
 
 @app.route("/open-close")
-def open_close():
+def show_open_close_page():
+    alert = open_close_page_alert()
     content_html = open("templates/open-close-settings.html").read()
     template_data = {
-        'content': content_html
+        'content': render_page("open-close-settings",
+                               {"open_time": get_config('open_time'),
+                                "close_time": get_config("close_time"),
+                                "box_status": get_config("box_status"),
+                                "alert": alert[1],
+                                "alert_type": alert[0]
+                                })
     }
     return render_template('main.html', **template_data)
+
+
+def open_close_page_alert():
+    if get_config('box_status') == "closed":
+        return "danger", "The box is closed, you can not change these settings until the box opens at the set time"
+    else:
+        return "", ""
 
 
 @app.route("/open-box")
 def open_box():
     os.system("~/open_box.py")
+    write_config("box_status", "open")
     return "Box open script called"
 
 
 @app.route("/close-box")
 def close_box():
-    write_config("testaa", "oopenn")
-    print('Hello world!')
     os.system("~/close_box.py")
+    write_config("box_status", "closed")
     return "Box close script called"
 
 
 @app.route("/set-time")
 def set_open_time():
-    write_config("open_time", request.args.get('open'))
-    write_config("close_time", request.args.get('close'))
-    print(request.args.get('open'))
-    print(request.args.get('close'))
-    return "Set box open time script called"
+    if get_config("box_status") == "open":
+        write_config("open_time", request.args.get('open'))
+        write_config("close_time", request.args.get('close'))
+        return "Open/closing times are set!"
+    else:
+        return "The box is closed! You can not change these settings now"
+
+
+@app.route("/set-wifi")
+def set_wifi():
+    write_config("wifi_ssid", request.args.get('wifi_ssid'))
+    write_config("wpa2", request.args.get('wpa2'))
+    return "Set wifi settings saved!"
