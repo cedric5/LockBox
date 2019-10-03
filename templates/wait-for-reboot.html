@@ -133,6 +133,6 @@ h3 { color: #111;
 </script>
 
 <script>
+    setInterval(checkServerStatus, 3000);
     function call_reboot(){$.ajax('/reboot-device', {success: function(response){}})};
-    call_reboot();
 </script>
