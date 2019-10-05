@@ -1,4 +1,5 @@
 import json
+import threading
 from datetime import date
 from flask import Flask, render_template
 from flask import request
@@ -47,7 +48,7 @@ def daysHoursMinutesSecondsFromSeconds(seconds):
 def time_left(box_status):
     if box_status == "closed": open_close_time = get_config('open_time')
     if box_status == "open": open_close_time = get_config('close_time')
-
+    if open_close_time == "": return 0, 0, 0, 0
     time_to_compare = datetime.datetime.strptime(open_close_time, '%Y-%m-%d %H:%M')
     now = datetime.datetime.now()
     return daysHoursMinutesSecondsFromSeconds(dateDiffInSeconds(now, time_to_compare))
@@ -66,7 +67,10 @@ def show_main_page():
     wifi_ssid = get_config("wifi_ssid")
     wifi_strength = get_config("wifi_strength")
     time_left_arr = time_left(box_status)
-    print(time_left_arr)
+    if open_time == '' or close_time == '':
+        print("jaaah")
+    else:
+        print("neee")
 
     template_data = {
         'content': render_page("status",
@@ -118,6 +122,7 @@ def reboot_device():
     print('rebooting')
     return "rebooting"
 
+
 @app.route("/open-close")
 def show_open_close_page():
     alert = open_close_page_alert()
@@ -143,20 +148,20 @@ def open_close_page_alert():
 
 @app.route("/open-box")
 def open_box():
-    os.system("~/open_box.py")
+    os.system("python ~/open_box.py")
     write_config("box_status", "open")
     return "Box open script called"
 
 
 @app.route("/close-box")
 def close_box():
-    os.system("~/close_box.py")
+    os.system("python ~/close_box.py")
     write_config("box_status", "closed")
     return "Box close script called"
 
 
 @app.route("/set-time")
-def set_open_time():
+def set_times():
     if get_config("box_status") == "open":
         write_config("open_time", request.args.get('open'))
         write_config("close_time", request.args.get('close'))
@@ -170,3 +175,43 @@ def set_wifi():
     write_config("wifi_ssid", request.args.get('wifi_ssid'))
     write_config("wpa2", request.args.get('wpa2'))
     return "Set wifi settings saved!"
+
+
+def check_times():
+    box_status = get_config("box_status")
+    times = time_left(box_status)
+    days = times[0]
+    hours = times[1]
+    minutes = times[2]
+    seconds = times[3]
+    time_left_total = days + hours + minutes + seconds
+    if time_left_total < 1 or days < 0:
+        move_lid(box_status)
+
+
+def move_lid(box_status):
+    if box_status == "closed": open_close_time = get_config('open_time')
+    if box_status == "open": open_close_time = get_config('close_time')
+    if is_valid_date(open_close_time):
+        print("moving box")
+        if box_status == "open":
+            close_box()
+            write_config("close_time", "")
+        else:
+            open_box()
+            write_config("open_time", "")
+
+
+def is_valid_date(date):
+    if date == "": return False
+    if datetime.datetime.now() > datetime.datetime.strptime(date, '%Y-%m-%d %H:%M'):
+        return False
+    return True
+
+
+def start_timer():
+    threading.Timer(1.0, start_timer).start()
+    check_times()
+
+
+start_timer()

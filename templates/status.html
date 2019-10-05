@@ -15,19 +15,25 @@
     <div class="card-body">
       <h5 class="card-title">Lockbox status</h5>
       <p>
-                          {% if box_status == 'closed' %}
-                The box is currently <span style="color: red; ">{{ box_status }}</span>
-                {% else %}
-                The box is currently <span style="color: green; ">{{ box_status }}</span>
-                {% endif %}.</p>
-                            <p class="card-text">
-                                {% if box_status == 'closed' %} {% if open_time %}
-                                <p>The box will open on {{ open_time }}</p>
-                                {% endif %} {% elif box_status == 'open' %} {% if close_time %}
-                                <p>The box will close on {{ close_time }}</p>
-                                {% endif %} {% endif %}
-                            </p>
-                            <a href="/open-close" class="btn btn-primary btn-block">Go to open/close settings</a>
+          {% if box_status == 'closed' %}
+            The box is currently <span style="color: red; ">{{ box_status }}</span>
+          {% else %}
+            The box is currently <span style="color: green; ">{{ box_status }}</span>
+          {% endif %}</p>
+        <p class="card-text">
+            {% if box_status == 'closed' %}
+                {% if open_time %}
+                    <p>The box will open on {{ open_time }}</p>
+                {% endif %}
+            {% elif box_status == 'open' %}
+                {% if close_time %}
+                    <p>The box will close on {{ close_time }}</p>
+            {% endif %}
+        {% endif %}
+                    {% if open_time == '' and close_time == '' %}
+                    <p>No times have been set yet!</p>
+        {% endif %}
+            <a href="/open-close" class="btn btn-primary btn-block">Go to open/close settings</a>
     </div>
   </div>
   <div class="card text-center">
@@ -35,7 +41,7 @@
         <br>
       <h5 class="card-title">Countdown</h5>
       <p class="card-text">the box will {{ future_box_status }} in:</p>
-        <p class="card-text">{{ time_left[0] }} days {{ time_left[1] }} hours {{ time_left[2] }} minutes and {{ time_left[3] }}
+        <p class="card-text">{{ time_left[0] }} days {{ time_left[1] }} hours {{ time_left[2] }} minutes and {{ time_left[3] }} seconds
 </p>
     </div>
   </div>
