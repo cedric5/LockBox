@@ -41,8 +41,8 @@
         <br>
       <h5 class="card-title">Countdown</h5>
       <p class="card-text">the box will {{ future_box_status }} in:</p>
-        <p class="card-text">{{ time_left[0] }} days {{ time_left[1] }} hours {{ time_left[2] }} minutes and {{ time_left[3] }} seconds
-</p>
+        <p class="card-text"> <p id="countdown"></p>
+       <!-- {{ time_left[0] }} days {{ time_left[1] }} hours {{ time_left[2] }} minutes and {{ time_left[3] }} seconds</p>-->
     </div>
   </div>
   <div class="card text-center">
@@ -58,3 +58,46 @@
   </div>
 </div>
 </div>
+
+
+<script>
+var date_string;
+{% if box_status == 'closed' %}
+    date_string = '{{open_time}}';
+{% elif box_status == 'open' %}
+    date_string = '{{close_time}}';
+{% endif %}
+console.log(date_string);
+  if (date_string == '') {
+    document.getElementById("countdown").innerHTML = "No open/close times set";
+  } else {
+
+// Set the date we're counting down to
+var countDownDate = new Date(date_string).getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="demo"
+  document.getElementById("countdown").innerHTML = days + " days " + hours + " hours "
+  + minutes + " minutes " + seconds + " seconds ";
+
+  // If the count down is finished, write some text
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("countdown").innerHTML = "No open/close times set";
+  }
+}, 1)};
+</script>
