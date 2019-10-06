@@ -1,3 +1,4 @@
+import datetime
 import json
 import os
 import tools as tools
@@ -25,6 +26,14 @@ def show_main_page():
 def show_wifi_page():
     return wifi_page_controller.show()
 
+@app.route("/set-next-friday")
+def set_to_next_friday():
+    next_friday = tools.get_next_friday()
+    tools.write_config("close_time", datetime.datetime.now().strftime("%Y-%m-%d %H:%M"))
+    tools.write_config("open_time", next_friday.strftime("%Y-%m-%d %H:%M"))
+    print(next_friday.strftime("%Y-%m-%d %H:%M"))
+    tools.close_box()
+    return 'date set to next friday!'
 
 @app.route("/reboot")
 def show_reboot_page():

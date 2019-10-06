@@ -42,6 +42,13 @@ def time_left(box_status):
     now = datetime.datetime.now()
     return daysHoursMinutesSecondsFromSeconds(dateDiffInSeconds(now, time_to_compare))
 
+def get_next_friday():
+    next_friday = datetime.date.today()
+    while next_friday.weekday() != 4:
+        next_friday += datetime.timedelta(1)
+
+    return datetime.datetime(next_friday.year, next_friday.month, next_friday.day, hour=18, minute=0, second=0)
+
 def close_box():
      os.system("python /home/pi/LockBox/scripts/open_box.py")
      write_config("box_status", "closed")
