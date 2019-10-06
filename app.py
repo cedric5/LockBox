@@ -33,12 +33,12 @@ def show_reboot_page():
 
 @app.route("/reboot-device-loader")
 def show_reboot_device_page():
-    return render_template("wait-for-reboot.html")
+    return reboot_page_controller.reboot()
 
 
 @app.route("/reboot-device")
 def reboot_device():
-    os.system("sudo reboot")
+    os.system("python /home/pi/LockBox/scripts/reboot.py")
     print('rebooting')
     return "rebooting"
 

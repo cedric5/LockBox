@@ -43,10 +43,10 @@ def time_left(box_status):
     return daysHoursMinutesSecondsFromSeconds(dateDiffInSeconds(now, time_to_compare))
 
 def close_box():
-     os.system("python ~/close_box.py")
+     os.system("python /home/pi/LockBox/scripts/open_box.py")
      write_config("box_status", "closed")
 
 
 def open_box():
-    os.system("python ~/open_box.py")
+    os.system("python /home/pi/LockBox/scripts/open_box.py")
     write_config("box_status", "open")

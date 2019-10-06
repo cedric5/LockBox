@@ -8,3 +8,6 @@ def show():
         'content': content_html
     }
     return render_template('main.html', **template_data)
+
+def reboot():
+    return render_template("wait-for-reboot.html")

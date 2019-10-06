@@ -113,25 +113,29 @@ h3 { color: #111;
 </div>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>
-        setInterval(checkServerStatus, 6000);
-        let call_reboot_interval = setInterval(call_reboot, 3000);
+setInterval(checkServerStatus, 6000);
 
-        function call_reboot(){$.ajax('/reboot-device', {success: function(response){}})};
 
- function checkServerStatus()
-{
-    clearInterval(call_reboot_interval);
-    var url = "http://{{ request.host.split(':')[0] }}:5000/";
-    var img = document.body.appendChild(document.createElement("img"));
-    img.onload = function()
-    {
-        console.log("online");
-        window.location.replace(url);
-    };
-    img.onerror = function()
-    {
-        console.log("offline");
-    };
-    img.src = "http://{{ request.host.split(':')[0] }}:5000/static/square.png";
+function call_reboot() {
+	console.log("making reboot request");
+	$.ajax('/reboot-device', {
+		success: function (response) {
+		},
+	    timeout: 99999999999
+	})
+};
+
+function checkServerStatus() {
+	var url = "http://{{ request.host.split(':')[0] }}/";
+	var img = document.body.appendChild(document.createElement("img"));
+	img.onload = function () {
+		console.log("online");
+		window.location.replace(url);
+	};
+	img.onerror = function () {
+		console.log("offline");
+	};
+	img.src = "http://{{ request.host.split(':')[0] }}/static/square.png";
 }
+call_reboot();
 </script>
