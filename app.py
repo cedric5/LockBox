@@ -1,15 +1,15 @@
 import json
 import os
-import Lockbox.tools as tools
-import Lockbox.timer as timer
+import tools as tools
+import timer as timer
 from flask import Flask
 from flask import request
 
 
-import LockBox.controllers.wifi_page as wifi_page_controller
-import LockBox.controllers.open_close_page as open_close_page_controller
-import LockBox.controllers.reboot_page as reboot_page_controller
-import LockBox.controllers.status_page as status_page_controller
+import controllers.wifi_page as wifi_page_controller
+import controllers.open_close_page as open_close_page_controller
+import controllers.reboot_page as reboot_page_controller
+import controllers.status_page as status_page_controller
 
 app = Flask(__name__)
 
@@ -49,13 +49,13 @@ def show_open_close_page():
 
 @app.route("/open-box")
 def open_box():
-    tools.open_box
+    tools.open_box()
     return "Box open script called"
 
 
 @app.route("/close-box")
 def close_box():
-    tools.close_box
+    tools.close_box()
     return "Box close script called"
 
 

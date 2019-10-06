@@ -1,5 +1,5 @@
 import threading
-from LockBox import tools
+import tools
 import datetime
 
 def check_times():

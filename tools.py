@@ -1,5 +1,6 @@
 import json
 import datetime
+import os
 
 from flask import Flask, render_template
 
@@ -47,5 +48,5 @@ def close_box():
 
 
 def open_box():
-    os.system("python ~/close_box.py")
-    tools.write_config("box_status", "open")
+    os.system("python ~/open_box.py")
+    write_config("box_status", "open")
