@@ -20,11 +20,11 @@ def move_lid(box_status):
     if is_valid_date(open_close_time):
         print("moving box")
         if box_status == "open":
+            tools.write_config("close_time", "")
             tools.close_box()
-            write_config("close_time", "")
         else:
+            tools.write_config("open_time", "")
             tools.open_box()
-            write_config("open_time", "")
 
 
 def is_valid_date(date):

@@ -6,29 +6,6 @@
     .countdown_card {
         min-height: 5000px;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </style>
 <div class="container-fluid">
     <br>
@@ -106,14 +83,12 @@ var date_string;
 {% elif box_status == 'open' %}
     date_string = '{{close_time}}';
 {% endif %}
-console.log(date_string);
   if (date_string == '') {
     document.getElementById("countdown").innerHTML = "No open/close times set";
   } else {
 
 // Set the date we're counting down to
 var countDownDate = new Date(date_string).getTime();
-
 // Update the count down every 1 second
 var x = setInterval(function() {
 
@@ -134,8 +109,11 @@ var x = setInterval(function() {
   + minutes + " minutes " + seconds + " seconds ";
 
   // If the count down is finished, write some text
-  if (distance < 0) {
-    document.getElementById("countdown").innerHTML = "No open/close times set";
+  if (distance  < 0) {
+  document.getElementById("countdown").innerHTML = 0 + " days " + 0 + " hours "
+  + 0 + " minutes " + 0 + " seconds ";
+      clearInterval(x);
+      location.reload();
   }
 }, 1)};
 </script>
