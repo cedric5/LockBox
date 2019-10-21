@@ -109,11 +109,9 @@ var x = setInterval(function() {
   + minutes + " minutes " + seconds + " seconds ";
 
   // If the count down is finished, write some text
-  if (distance  < 0) {
-  document.getElementById("countdown").innerHTML = 0 + " days " + 0 + " hours "
-  + 0 + " minutes " + 0 + " seconds ";
-      clearInterval(x);
-      location.reload();
+  if (distance < 0) {
+    document.getElementById("countdown").innerHTML = "No open/close times set";
+    clearInterval(x);
   }
 }, 1)};
 </script>
