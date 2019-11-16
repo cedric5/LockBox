@@ -1,6 +1,7 @@
 import datetime
 import json
 import os
+import box
 import tools as tools
 import timer as timer
 from flask import Flask
@@ -58,13 +59,13 @@ def show_open_close_page():
 
 @app.route("/open-box")
 def open_box():
-    tools.open_box()
+    box.open_box()
     return "Box open script called"
 
 
 @app.route("/close-box")
 def close_box():
-    tools.close_box()
+    box.close_box()
     return "Box close script called"
 
 

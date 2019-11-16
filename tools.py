@@ -49,11 +49,3 @@ def get_next_friday():
 
     return datetime.datetime(next_friday.year, next_friday.month, next_friday.day, hour=18, minute=0, second=0)
 
-def close_box():
-     os.system("python /home/pi/LockBox/scripts/close_box.py")
-     write_config("box_status", "closed")
-
-
-def open_box():
-    os.system("python /home/pi/LockBox/scripts/open_box.py")
-    write_config("box_status", "open")

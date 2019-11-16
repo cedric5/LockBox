@@ -1,6 +1,7 @@
 import threading
 import tools
 import datetime
+import box
 
 def check_times():
     box_status = tools.get_config("box_status")
@@ -21,10 +22,10 @@ def move_lid(box_status):
         print("moving box")
         if box_status == "open":
             tools.write_config("close_time", "")
-            tools.close_box()
+            box.close_box()
         else:
             tools.write_config("open_time", "")
-            tools.open_box()
+            box.open_box()
 
 
 def is_valid_date(date):
