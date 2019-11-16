@@ -25,7 +25,7 @@ def close_box():
         sleep(0.03)
     pi.set_servo_pulsewidth(23, 0)
     print("closing box: locking")
-    sleep(0.2)
+    sleep(0.15)
     pi.set_servo_pulsewidth(17, 2250)
     sleep(1)
     pi.set_servo_pulsewidth(17, 0)
