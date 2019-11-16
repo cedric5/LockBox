@@ -33,7 +33,7 @@ def set_to_next_friday():
     tools.write_config("close_time", datetime.datetime.now().strftime("%Y-%m-%d %H:%M"))
     tools.write_config("open_time", next_friday.strftime("%Y-%m-%d %H:%M"))
     print(next_friday.strftime("%Y-%m-%d %H:%M"))
-    tools.close_box()
+    box.close_box()
     return 'date set to next friday!'
 
 @app.route("/reboot")
