@@ -4,6 +4,10 @@ import datetime
 import box
 
 def check_times():
+    if tools.config_is_set("open_time") or tools.config_is_set("close_time"):
+        tools.write_config('mode', 'automatic')
+    else:
+        tools.write_config('mode', 'manual')
     box_status = tools.get_config("box_status")
     times = tools.time_left(box_status)
     days = times[0]
@@ -21,10 +25,8 @@ def move_lid(box_status):
     if is_valid_date(open_close_time):
         print("moving box")
         if box_status == "open":
-            tools.write_config("close_time", "")
             box.close_box()
         else:
-            tools.write_config("open_time", "")
             box.open_box()
 
 

@@ -1,17 +1,22 @@
 import pigpio
 import tools
+import timer
 from time import sleep
 
 
 def open_box():
-    print("opening box: unlocking")
-    pi = pigpio.pi()
-    pi.set_servo_pulsewidth(17, 2000)
-    sleep(0.2)
-    pi.set_servo_pulsewidth(17, 0)
-    print("opening box: opening lid")
-    pi.set_servo_pulsewidth(23, 1725)
-    sleep(0.1)
+   print("opening box: unlocking")
+   pi = pigpio.pi()
+   pi.set_servo_pulsewidth(17, 2000)
+   sleep(0.2)
+   pi.set_servo_pulsewidth(17, 0)
+   print("opening box: opening lid")
+   pi.set_servo_pulsewidth(23, 1725)
+   sleep(0.1)
+   tools.write_config("open_time", "")
+   tools.write_config("box_status", "open")
+   print('Box has been opened!')
+
 
 
 def close_box():
@@ -29,3 +34,6 @@ def close_box():
     pi.set_servo_pulsewidth(17, 2250)
     sleep(1)
     pi.set_servo_pulsewidth(17, 0)
+    tools.write_config("close_time", "")
+    tools.write_config("box_status", "closed")
+    print('Box has been closed!')

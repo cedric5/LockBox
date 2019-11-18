@@ -19,8 +19,12 @@
           <h3>Set open time</h3>
 				<input readonly class="form-control" type="text" id="open-time-box" value="{{ open_time }}">
           <hr>
+            {% if mode == "automatic" %}
             {% if box_status == "closed" %}
           <button type="button" id="save" class="btn btn-success btn-block" disabled>Save</button>
+            {% else %}
+          <button type="button" id="save" class="btn btn-success btn-block">Save</button>
+            {% endif %}
             {% else %}
           <button type="button" id="save" class="btn btn-success btn-block">Save</button>
             {% endif %}

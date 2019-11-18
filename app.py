@@ -59,13 +59,19 @@ def show_open_close_page():
 
 @app.route("/open-box")
 def open_box():
-    box.open_box()
+    if tools.get_config('mode') == 'automatic':
+        print('Box in automatic mode, manual control disabled')
+    else:
+        box.open_box()
     return "Box open script called"
 
 
 @app.route("/close-box")
 def close_box():
-    box.close_box()
+    if tools.get_config('mode') == 'automatic':
+        print('Box in automatic mode, manual control disabled')
+    else:
+        box.close_box()
     return "Box close script called"
 
 

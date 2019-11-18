@@ -57,9 +57,15 @@
         </div>
         <div class="card text-center">
             <div class="card-body" style="margin-top:10px;">
+                {% if mode == 'manual' %}
                 <a href="#" id="open-box" class="btn btn-primary btn-block">Open box</a>
                 <a href="#" id="close-box" class="btn btn-primary btn-block">Close box</a>
                 <a href="#" id="set-friday" class="btn btn-danger btn-block">Close box till friday 18:00</a>
+                {% elif mode == 'automatic' %}
+                <a href="#" id="open-box" class="btn btn-primary btn-block disabled">Open box</a>
+                <a href="#" id="close-box" class="btn btn-primary btn-block disabled">Close box</a>
+                <a href="#" id="set-friday" class="btn btn-danger btn-block disabled">Close box till friday 18:00</a>
+                {% endif %}
             </div>
         </div>
     </div>

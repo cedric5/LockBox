@@ -4,9 +4,11 @@ import os
 
 from flask import Flask, render_template
 
+
 def render_page(page, page_data):
     rendered = render_template(page + '.html', **page_data)
     return rendered
+
 
 def get_config(key):
     with open('settings.json') as json_data_file:
@@ -22,6 +24,14 @@ def write_config(key, value):
         json.dump(settings, outfile)
     return
 
+
+def config_is_set(key):
+    if not get_config(key):
+        return False
+    else:
+        return True
+
+
 def dateDiffInSeconds(date1, date2):
     timedelta = date2 - date1
     return timedelta.days * 24 * 3600 + timedelta.seconds
@@ -33,6 +43,7 @@ def daysHoursMinutesSecondsFromSeconds(seconds):
     days, hours = divmod(hours, 24)
     return (days, hours, minutes, seconds)
 
+
 def time_left(box_status):
     open_close_time = ""
     if box_status == "closed": open_close_time = get_config('open_time')
@@ -42,10 +53,10 @@ def time_left(box_status):
     now = datetime.datetime.now()
     return daysHoursMinutesSecondsFromSeconds(dateDiffInSeconds(now, time_to_compare))
 
+
 def get_next_friday():
     next_friday = datetime.date.today()
     while next_friday.weekday() != 4:
         next_friday += datetime.timedelta(1)
 
     return datetime.datetime(next_friday.year, next_friday.month, next_friday.day, hour=18, minute=0, second=0)
-

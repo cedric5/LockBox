@@ -10,7 +10,7 @@ def show():
     wifi_ssid = tools.get_config("wifi_ssid")
     wifi_strength = tools.get_config("wifi_strength")
     time_left_arr = tools.time_left(box_status)
-
+    mode = tools.get_config("mode")
     template_data = {
         'content': tools.render_page("status",
                                {'box_status': box_status(),
@@ -18,7 +18,8 @@ def show():
                                 'open_time': open_time,
                                 "close_time": close_time,
                                 "time_left": time_left_arr,
-                                "wifi_ssid": wifi_ssid})
+                                "wifi_ssid": wifi_ssid,
+                                "mode": mode})
     }
 
     return render_template('main.html', **template_data)
