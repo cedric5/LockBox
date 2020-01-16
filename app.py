@@ -107,5 +107,13 @@ def open_box_google():
             box.close_box()
         return action
 
-
+def create_settings():
+    f = open("settings.json", "x")
+    f.close()
+    f = open("settings.json", "w")
+    f.write("{\"close_time\": \"\", \"open_time\": \"\", \"wifi_wpa2\": \"JEEEJ\", \"mode\": \"manual\", "
+            "\"wifi_strength\": 5, \"wifi_ssid\": \"EchtGoeieWifiMaat\", \"box_status\": \"open\"}")
+    f.close()
+if not os.path.exists('settings.json'):
+    create_settings()
 timer.start_timer()
