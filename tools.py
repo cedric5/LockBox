@@ -1,7 +1,6 @@
 import json
 import datetime
 import os
-
 from flask import Flask, render_template
 
 
@@ -11,19 +10,24 @@ def render_page(page, page_data):
 
 
 def get_config(key):
-    with open('settings.json') as json_data_file:
-        settings = json.load(json_data_file)
+    try:
+        with open('settings.json') as json_data_file:
+            settings = json.load(json_data_file)
         return settings[key]
+    except:
+        recover_config()
 
 
 def write_config(key, value):
-    with open('settings.json') as json_data_file:
-        settings = json.load(json_data_file)
-    settings[key] = value
-    with open('settings.json', 'w') as outfile:
-        json.dump(settings, outfile)
-    return
-
+    try:
+        with open('settings.json') as json_data_file:
+            settings = json.load(json_data_file)
+            settings[key] = value
+        with open('settings.json', 'w') as outfile:
+            json.dump(settings, outfile)
+            return
+    except:
+        recover_config()
 
 def config_is_set(key):
     if not get_config(key):
@@ -60,3 +64,9 @@ def get_next_friday():
         next_friday += datetime.timedelta(1)
 
     return datetime.datetime(next_friday.year, next_friday.month, next_friday.day, hour=18, minute=0, second=0)
+
+
+def recover_config():
+    os.system("sudo rm -f settings.json")
+    os.system("sudo cp default_settings.json settings.json")
+    #os.system('sudo shutdown -r now')
