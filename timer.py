@@ -22,12 +22,13 @@ def check_times():
 def move_lid(box_status):
     if box_status == "closed": open_close_time = tools.get_config('open_time')
     if box_status == "open": open_close_time = tools.get_config('close_time')
-    if is_valid_date(open_close_time):
-        print("moving box")
-        if box_status == "open":
-            box.close_box()
-        else:
-            box.open_box()
+    if open_close_time:
+        if is_valid_date(open_close_time):
+            print("moving box")
+            if box_status == "open":
+                box.close_box()
+            else:
+                box.open_box()
 
 
 def is_valid_date(date):
