@@ -3,6 +3,7 @@ import tools
 import datetime
 import box
 
+
 def check_times():
     if tools.config_is_set("open_time") or tools.config_is_set("close_time"):
         tools.write_config('mode', 'automatic')
@@ -22,13 +23,15 @@ def check_times():
 def move_lid(box_status):
     if box_status == "closed": open_close_time = tools.get_config('open_time')
     if box_status == "open": open_close_time = tools.get_config('close_time')
-    if open_close_time:
+    try:
         if is_valid_date(open_close_time):
             print("moving box")
             if box_status == "open":
                 box.close_box()
             else:
                 box.open_box()
+    except:
+        print('could not get open or close time, is setting.json still valid?')
 
 
 def is_valid_date(date):
