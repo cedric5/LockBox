@@ -99,21 +99,15 @@ def set_wifi():
 
 @app.route('/google', methods=['POST'])
 def open_box_google():
-        req = request.get_json(silent=True, force=True)
-        action = req['queryResult']['action']
-        if action == 'open-box':
-            box.open_box()
-        if action == 'close-box':
-            box.close_box()
-        return action
+    req = request.get_json(silent=True, force=True)
+    action = req['queryResult']['action']
+    if action == 'open-box':
+        box.open_box()
+    if action == 'close-box':
+        box.close_box()
+    return action
 
-def create_settings():
-    f = open("settings.json", "x")
-    f.close()
-    f = open("settings.json", "w")
-    f.write("{\"close_time\": \"\", \"open_time\": \"\", \"wifi_wpa2\": \"JEEEJ\", \"mode\": \"manual\", "
-            "\"wifi_strength\": 5, \"wifi_ssid\": \"EchtGoeieWifiMaat\", \"box_status\": \"open\"}")
-    f.close()
+
 if not os.path.exists('settings.json'):
-    create_settings()
+    tools.create_settings()
 timer.start_timer()
