@@ -22,7 +22,10 @@ def render_page(page, page_data):
 
 @app.route("/")
 def show_main_page():
-    return status_page_controller.show()
+    if tools.has_internet_connection():
+        return status_page_controller.show()
+    else:
+        return wifi_page_controller.show()
 
 
 @app.route("/wifi")

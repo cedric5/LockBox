@@ -1,6 +1,7 @@
 import json
 import datetime
 import os
+import urllib.request
 from flask import Flask, render_template
 
 
@@ -8,6 +9,12 @@ def render_page(page, page_data):
     rendered = render_template(page + '.html', **page_data)
     return rendered
 
+def has_internet_connection(host='http://google.com'):
+    try:
+        urllib.request.urlopen(host)  # Python 3.x
+        return True
+    except:
+        return False
 
 def get_config(key):
     try:
