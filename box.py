@@ -24,7 +24,7 @@ def close_box():
     print("closing box: closing lid")
     pi.set_servo_pulsewidth(23, 0)
     pulse = 1725  # open position of lid
-    while pulse > 1100:  # 1100 close position of lid
+    while pulse > 1000:  # 1100 close position of lid
         pulse -= 25
         pi.set_servo_pulsewidth(23, pulse)
         sleep(0.03)
