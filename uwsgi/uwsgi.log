@@ -1,0 +1,303 @@
+*** Starting uWSGI 2.0.18 (32bit) on [Sun Feb 16 21:49:02 2020] ***
+compiled with version: 8.3.0 on 16 July 2019 12:06:45
+os: Linux-4.19.97+ #1294 Thu Jan 30 13:10:54 GMT 2020
+nodename: raspberrypi
+machine: armv6l
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 1
+current working directory: /home/pi/LockBox
+detected binary path: /usr/local/bin/uwsgi
+chdir() to /home/pi/LockBox
+your processes number limit is 3391
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address /tmp/LockBox.sock fd 3
+Python version: 3.7.3 (default, Dec 20 2019, 18:57:59)  [GCC 8.3.0]
+Python main interpreter initialized at 0x1e64458
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 143936 bytes (140 KB) for 2 cores
+*** Operational MODE: threaded ***
+WSGI app 0 (mountpoint='') ready in 4 seconds on interpreter 0x1e64458 pid: 1780 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 1780)
+spawned uWSGI worker 1 (pid: 1795, cores: 2)
+[pid: 1795|app: 0|req: 1/1] 192.168.1.8 () {42 vars in 654 bytes} [Sun Feb 16 21:51:22 2020] GET / => generated 6951 bytes in 528 msecs (HTTP/1.1 200) 2 headers in 81 bytes (1 switches on core 0)
+[pid: 1795|app: 0|req: 3/2] 192.168.1.8 () {40 vars in 624 bytes} [Sun Feb 16 21:51:23 2020] GET /static/css/bootstrap.min.css => generated 144877 bytes in 249 msecs via sendfile() (HTTP/1.1 200) 8 headers in 311 bytes (0 switches on core 1)
+[pid: 1795|app: 0|req: 4/3] 192.168.1.8 () {40 vars in 607 bytes} [Sun Feb 16 21:51:23 2020] GET /static/jquery/jquery.min.js => generated 88145 bytes in 253 msecs via sendfile() (HTTP/1.1 200) 8 headers in 308 bytes (0 switches on core 0)
+[pid: 1795|app: 0|req: 5/4] 192.168.1.8 () {40 vars in 619 bytes} [Sun Feb 16 21:51:23 2020] GET /static/js/bootstrap.bundle.min.js => generated 67742 bytes in 60 msecs via sendfile() (HTTP/1.1 200) 8 headers in 308 bytes (0 switches on core 1)
+[pid: 1795|app: 0|req: 5/5] 192.168.1.8 () {40 vars in 597 bytes} [Sun Feb 16 21:51:23 2020] GET /static/js/bootstrap.js => generated 115048 bytes in 53 msecs via sendfile() (HTTP/1.1 200) 8 headers in 309 bytes (0 switches on core 0)
+[pid: 1795|app: 0|req: 6/6] 192.168.1.8 () {40 vars in 626 bytes} [Sun Feb 16 21:51:23 2020] GET /static/css/simple-sidebar.css => generated 966 bytes in 28 msecs via sendfile() (HTTP/1.1 200) 8 headers in 305 bytes (0 switches on core 1)
+[pid: 1795|app: 0|req: 7/7] 192.168.1.8 () {40 vars in 581 bytes} [Sun Feb 16 21:51:23 2020] GET /favicon.ico => generated 233 bytes in 211 msecs (HTTP/1.1 404) 2 headers in 72 bytes (1 switches on core 0)
+opening box: unlocking
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Can't connect to pigpio at localhost(8888)
+
+Did you start the pigpio daemon? E.g. sudo pigpiod
+
+Did you specify the correct Pi host/port in the environment
+variables PIGPIO_ADDR/PIGPIO_PORT?
+E.g. export PIGPIO_ADDR=soft, export PIGPIO_PORT=8888
+
+Did you specify the correct Pi host/port in the
+pigpio.pi() function? E.g. pigpio.pi('soft', 8888)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+[2020-02-16 21:51:29,745] ERROR in app: Exception on /open-box [GET]
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/lib/python3/dist-packages/flask/_compat.py", line 35, in reraise
+    raise value
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "./app.py", line 70, in open_box
+    box.open_box()
+  File "./box.py", line 10, in open_box
+    pi.set_servo_pulsewidth(17, 2000)
+  File "/usr/lib/python3/dist-packages/pigpio.py", line 1647, in set_servo_pulsewidth
+    self.sl, _PI_CMD_SERVO, user_gpio, int(pulsewidth)))
+  File "/usr/lib/python3/dist-packages/pigpio.py", line 993, in _pigpio_command
+    sl.s.send(struct.pack('IIII', cmd, p1, p2, 0))
+AttributeError: 'NoneType' object has no attribute 'send'
+[pid: 1795|app: 0|req: 8/8] 192.168.1.8 () {42 vars in 651 bytes} [Sun Feb 16 21:51:29 2020] GET /open-box => generated 291 bytes in 104 msecs (HTTP/1.1 500) 2 headers in 84 bytes (1 switches on core 1)
+closing box: closing lid
+closing box: locking
+opening box: unlocking
+opening box: opening lid
+Box has been closed!
+[pid: 1795|app: 0|req: 10/9] 192.168.1.8 () {42 vars in 653 bytes} [Sun Feb 16 21:52:20 2020] GET /close-box => generated 23 bytes in 2014 msecs (HTTP/1.1 200) 2 headers in 79 bytes (1 switches on core 0)
+Box has been opened!
+[pid: 1795|app: 0|req: 10/10] 192.168.1.8 () {42 vars in 651 bytes} [Sun Feb 16 21:52:22 2020] GET /open-box => generated 22 bytes in 365 msecs (HTTP/1.1 200) 2 headers in 79 bytes (1 switches on core 1)
+
+We trust you have received the usual lecture from the local System
+Administrator. It usually boils down to these three things:
+
+    #1) Respect the privacy of others.
+    #2) Think before you type.
+    #3) With great power comes great responsibility.
+
+sudo: no tty present and no askpass program specified
+creating settings.json
+Exception in thread Thread-194:
+Traceback (most recent call last):
+  File "./tools.py", line 24, in write_config
+    settings = json.load(json_data_file)
+  File "/usr/lib/python3.7/json/__init__.py", line 296, in load
+    parse_constant=parse_constant, object_pairs_hook=object_pairs_hook, **kw)
+  File "/usr/lib/python3.7/json/__init__.py", line 348, in loads
+    return _default_decoder.decode(s)
+  File "/usr/lib/python3.7/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/usr/lib/python3.7/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.7/threading.py", line 917, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.7/threading.py", line 1166, in run
+    self.function(*self.args, **self.kwargs)
+  File "./timer.py", line 46, in start_timer
+    check_times()
+  File "./timer.py", line 11, in check_times
+    tools.write_config('mode', 'manual')
+  File "./tools.py", line 30, in write_config
+    recover_config()
+  File "./tools.py", line 79, in recover_config
+    create_settings()
+  File "./tools.py", line 70, in create_settings
+    f = open("settings.json", "x")
+FileExistsError: [Errno 17] File exists: 'settings.json'
+
+closing box: closing lid
+closing box: locking
+Box has been closed!
+[pid: 1795|app: 0|req: 11/11] 192.168.1.8 () {42 vars in 653 bytes} [Sun Feb 16 21:52:23 2020] GET /close-box => generated 23 bytes in 1999 msecs (HTTP/1.1 200) 2 headers in 79 bytes (1 switches on core 0)
+opening box: unlocking
+opening box: opening lid
+Box has been opened!
+[pid: 1795|app: 0|req: 12/12] 192.168.1.8 () {42 vars in 651 bytes} [Sun Feb 16 21:52:25 2020] GET /open-box => generated 22 bytes in 350 msecs (HTTP/1.1 200) 2 headers in 79 bytes (1 switches on core 1)
+closing box: closing lid
+closing box: locking
+Box has been closed!
+[pid: 1795|app: 0|req: 13/13] 192.168.1.8 () {42 vars in 653 bytes} [Sun Feb 16 21:52:26 2020] GET /close-box => generated 23 bytes in 1987 msecs (HTTP/1.1 200) 2 headers in 79 bytes (1 switches on core 0)
+opening box: unlocking
+opening box: opening lid
+Box has been opened!
+[pid: 1795|app: 0|req: 14/14] 192.168.1.8 () {42 vars in 651 bytes} [Sun Feb 16 21:52:53 2020] GET /open-box => generated 22 bytes in 2918 msecs (HTTP/1.1 200) 2 headers in 79 bytes (1 switches on core 1)
+closing box: closing lid
+closing box: locking
+Box has been closed!
+[pid: 1795|app: 0|req: 15/15] 192.168.1.8 () {42 vars in 653 bytes} [Sun Feb 16 21:53:06 2020] GET /close-box => generated 23 bytes in 1987 msecs (HTTP/1.1 200) 2 headers in 79 bytes (1 switches on core 0)
+opening box: unlocking
+opening box: opening lid
+Box has been opened!
+[pid: 1795|app: 0|req: 16/16] 192.168.1.8 () {42 vars in 651 bytes} [Sun Feb 16 21:53:12 2020] GET /open-box => generated 22 bytes in 380 msecs (HTTP/1.1 200) 2 headers in 79 bytes (1 switches on core 1)
+closing box: closing lid
+closing box: locking
+Box has been closed!
+[pid: 1795|app: 0|req: 17/17] 192.168.1.8 () {42 vars in 653 bytes} [Sun Feb 16 21:53:33 2020] GET /close-box => generated 23 bytes in 1998 msecs (HTTP/1.1 200) 2 headers in 79 bytes (1 switches on core 0)
+closing box: closing lid
+closing box: locking
+opening box: unlocking
+opening box: opening lid
+Box has been closed!
+[pid: 1795|app: 0|req: 19/18] 192.168.1.8 () {42 vars in 653 bytes} [Sun Feb 16 21:55:02 2020] GET /close-box => generated 23 bytes in 2000 msecs (HTTP/1.1 200) 2 headers in 79 bytes (1 switches on core 1)
+Box has been opened!
+[pid: 1795|app: 0|req: 19/19] 192.168.1.8 () {42 vars in 651 bytes} [Sun Feb 16 21:55:04 2020] GET /open-box => generated 22 bytes in 349 msecs (HTTP/1.1 200) 2 headers in 79 bytes (1 switches on core 0)
+closing box: closing lid
+closing box: locking
+Box has been closed!
+[pid: 1795|app: 0|req: 21/20] 192.168.1.8 () {42 vars in 653 bytes} [Sun Feb 16 21:55:10 2020] GET /close-box => generated 23 bytes in 2020 msecs (HTTP/1.1 200) 2 headers in 79 bytes (1 switches on core 1)
+
+We trust you have received the usual lecture from the local System
+Administrator. It usually boils down to these three things:
+
+    #1) Respect the privacy of others.
+    #2) Think before you type.
+    #3) With great power comes great responsibility.
+
+sudo: no tty present and no askpass program specified
+creating settings.json
+[2020-02-16 21:55:12,653] ERROR in app: Exception on /open-box [GET]
+Traceback (most recent call last):
+  File "./tools.py", line 15, in get_config
+    settings = json.load(json_data_file)
+  File "/usr/lib/python3.7/json/__init__.py", line 296, in load
+    parse_constant=parse_constant, object_pairs_hook=object_pairs_hook, **kw)
+  File "/usr/lib/python3.7/json/__init__.py", line 348, in loads
+    return _default_decoder.decode(s)
+  File "/usr/lib/python3.7/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/usr/lib/python3.7/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/lib/python3/dist-packages/flask/_compat.py", line 35, in reraise
+    raise value
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "./app.py", line 67, in open_box
+    if tools.get_config('mode') == 'automatic':
+  File "./tools.py", line 18, in get_config
+    recover_config()
+  File "./tools.py", line 79, in recover_config
+    create_settings()
+  File "./tools.py", line 70, in create_settings
+    f = open("settings.json", "x")
+FileExistsError: [Errno 17] File exists: 'settings.json'
+[pid: 1795|app: 0|req: 21/21] 192.168.1.8 () {42 vars in 651 bytes} [Sun Feb 16 21:55:12 2020] GET /open-box => generated 291 bytes in 238 msecs (HTTP/1.1 500) 2 headers in 84 bytes (1 switches on core 0)
+opening box: unlocking
+opening box: opening lid
+Box has been opened!
+[pid: 1795|app: 0|req: 22/22] 192.168.1.8 () {42 vars in 651 bytes} [Sun Feb 16 21:55:15 2020] GET /open-box => generated 22 bytes in 393 msecs (HTTP/1.1 200) 2 headers in 79 bytes (1 switches on core 1)
+closing box: closing lid
+closing box: locking
+opening box: unlocking
+opening box: opening lid
+Box has been closed!
+[pid: 1795|app: 0|req: 24/23] 192.168.1.8 () {42 vars in 653 bytes} [Sun Feb 16 21:56:58 2020] GET /close-box => generated 23 bytes in 1984 msecs (HTTP/1.1 200) 2 headers in 79 bytes (2 switches on core 0)
+Box has been opened!
+[pid: 1795|app: 0|req: 24/24] 192.168.1.8 () {42 vars in 651 bytes} [Sun Feb 16 21:57:00 2020] GET /open-box => generated 22 bytes in 341 msecs (HTTP/1.1 200) 2 headers in 79 bytes (1 switches on core 1)
+closing box: closing lid
+closing box: locking
+Box has been closed!
+[pid: 1795|app: 0|req: 25/25] 192.168.1.8 () {42 vars in 653 bytes} [Sun Feb 16 21:57:20 2020] GET /close-box => generated 23 bytes in 1984 msecs (HTTP/1.1 200) 2 headers in 79 bytes (1 switches on core 0)
+SIGINT/SIGQUIT received...killing workers...
+worker 1 buried after 1 seconds
+goodbye to uWSGI.
+VACUUM: unix socket /tmp/LockBox.sock removed.
+*** Starting uWSGI 2.0.18 (32bit) on [Sun Feb 16 21:59:45 2020] ***
+compiled with version: 8.3.0 on 16 July 2019 12:06:45
+os: Linux-4.19.97+ #1294 Thu Jan 30 13:10:54 GMT 2020
+nodename: raspberrypi
+machine: armv6l
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 1
+current working directory: /home/pi/LockBox
+detected binary path: /usr/local/bin/uwsgi
+chdir() to /home/pi/LockBox
+your processes number limit is 3391
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address /tmp/LockBox.sock fd 3
+Python version: 3.7.3 (default, Dec 20 2019, 18:57:59)  [GCC 8.3.0]
+Python main interpreter initialized at 0xd08458
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 143936 bytes (140 KB) for 2 cores
+*** Operational MODE: threaded ***
+WSGI app 0 (mountpoint='') ready in 11 seconds on interpreter 0xd08458 pid: 506 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 506)
+spawned uWSGI worker 1 (pid: 675, cores: 2)
+[pid: 675|app: 0|req: 1/1] 192.168.1.8 () {42 vars in 654 bytes} [Sun Feb 16 22:01:07 2020] GET / => generated 6951 bytes in 663 msecs (HTTP/1.1 200) 2 headers in 81 bytes (2 switches on core 0)
+[pid: 675|app: 0|req: 3/2] 192.168.1.8 () {46 vars in 752 bytes} [Sun Feb 16 22:01:07 2020] GET /static/jquery/jquery.min.js => generated 0 bytes in 306 msecs (HTTP/1.1 304) 5 headers in 211 bytes (0 switches on core 1)
+[pid: 675|app: 0|req: 4/3] 192.168.1.8 () {46 vars in 764 bytes} [Sun Feb 16 22:01:07 2020] GET /static/js/bootstrap.bundle.min.js => generated 0 bytes in 306 msecs (HTTP/1.1 304) 5 headers in 211 bytes (0 switches on core 0)
+[pid: 675|app: 0|req: 5/4] 192.168.1.8 () {46 vars in 770 bytes} [Sun Feb 16 22:01:08 2020] GET /static/css/bootstrap.min.css => generated 0 bytes in 45 msecs (HTTP/1.1 304) 5 headers in 212 bytes (0 switches on core 1)
+[pid: 675|app: 0|req: 6/5] 192.168.1.8 () {46 vars in 742 bytes} [Sun Feb 16 22:01:08 2020] GET /static/js/bootstrap.js => generated 0 bytes in 44 msecs (HTTP/1.1 304) 5 headers in 211 bytes (0 switches on core 0)
+[pid: 675|app: 0|req: 6/6] 192.168.1.8 () {46 vars in 769 bytes} [Sun Feb 16 22:01:08 2020] GET /static/css/simple-sidebar.css => generated 0 bytes in 23 msecs (HTTP/1.1 304) 5 headers in 209 bytes (0 switches on core 1)
+[pid: 675|app: 0|req: 7/7] 192.168.1.8 () {40 vars in 581 bytes} [Sun Feb 16 22:01:08 2020] GET /favicon.ico => generated 233 bytes in 308 msecs (HTTP/1.1 404) 2 headers in 72 bytes (1 switches on core 0)
+opening box: unlocking
+opening box: opening lid
+Box has been opened!
+[pid: 675|app: 0|req: 8/8] 192.168.1.8 () {42 vars in 651 bytes} [Sun Feb 16 22:01:09 2020] GET /open-box => generated 22 bytes in 387 msecs (HTTP/1.1 200) 2 headers in 79 bytes (1 switches on core 1)
+closing box: closing lid
+closing box: locking
+Box has been closed!
+[pid: 675|app: 0|req: 9/9] 192.168.1.8 () {42 vars in 653 bytes} [Sun Feb 16 22:01:11 2020] GET /close-box => generated 23 bytes in 2125 msecs (HTTP/1.1 200) 2 headers in 79 bytes (1 switches on core 0)
+opening box: unlocking
+opening box: opening lid
+Box has been opened!
+[pid: 675|app: 0|req: 10/10] 192.168.1.8 () {42 vars in 651 bytes} [Sun Feb 16 22:01:21 2020] GET /open-box => generated 22 bytes in 373 msecs (HTTP/1.1 200) 2 headers in 79 bytes (1 switches on core 1)
+closing box: closing lid
+closing box: locking
+Box has been closed!
+[pid: 675|app: 0|req: 11/11] 192.168.1.8 () {42 vars in 653 bytes} [Sun Feb 16 22:01:22 2020] GET /close-box => generated 23 bytes in 2153 msecs (HTTP/1.1 200) 2 headers in 79 bytes (1 switches on core 0)
+opening box: unlocking
+opening box: opening lid
+Box has been opened!
+[pid: 675|app: 0|req: 12/12] 192.168.1.8 () {42 vars in 651 bytes} [Sun Feb 16 22:01:26 2020] GET /open-box => generated 22 bytes in 357 msecs (HTTP/1.1 200) 2 headers in 79 bytes (1 switches on core 1)
+closing box: closing lid
+closing box: locking
+Box has been closed!
+[pid: 675|app: 0|req: 13/13] 192.168.1.8 () {42 vars in 653 bytes} [Sun Feb 16 22:01:31 2020] GET /close-box => generated 23 bytes in 2110 msecs (HTTP/1.1 200) 2 headers in 79 bytes (1 switches on core 0)
+opening box: unlocking
+opening box: opening lid
+Box has been opened!
+[pid: 675|app: 0|req: 14/14] 192.168.1.8 () {42 vars in 651 bytes} [Sun Feb 16 22:12:26 2020] GET /open-box => generated 22 bytes in 348 msecs (HTTP/1.1 200) 2 headers in 79 bytes (1 switches on core 1)
+closing box: closing lid
+closing box: locking
+opening box: unlocking
+opening box: opening lid
+Box has been opened!
+[pid: 675|app: 0|req: 16/15] 192.168.1.8 () {42 vars in 651 bytes} [Sun Feb 16 22:12:29 2020] GET /open-box => generated 22 bytes in 349 msecs (HTTP/1.1 200) 2 headers in 79 bytes (2 switches on core 1)
+Box has been closed!
+[pid: 675|app: 0|req: 16/16] 192.168.1.8 () {42 vars in 653 bytes} [Sun Feb 16 22:12:28 2020] GET /close-box => generated 23 bytes in 2146 msecs (HTTP/1.1 200) 2 headers in 79 bytes (1 switches on core 0)
