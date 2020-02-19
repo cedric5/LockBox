@@ -1,2 +1,5 @@
 # LockBox
-Make sure to chmod 777 the project directory :)
+Make sure python and and uwsgi have correct acces and permissions to read and write the application direcotry
+
+start server: python3 -m flask run
+ 
