@@ -1,8 +1,10 @@
 <div class="container-fluid">
         <h1 class="mt-1">Wifi settings</h1>
-        <div id="alert" class="alert alert-info" role="alert" style="display:none" >
-        {{ alert }}
-        </div>
+          {% if alert  %}
+          <div class="alert alert-{{alert_type}}" role="alert">
+            {{ alert }}
+          </div>
+          {% endif %}
         <h8>For these changes to take effect you a reboot of the LockBox is needed</h8>
           <hr>
           <h3>Wifi network name</h3>
