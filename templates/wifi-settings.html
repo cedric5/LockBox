@@ -6,6 +6,9 @@
           </div>
           {% endif %}
         <h8>For these changes to take effect you a reboot of the LockBox is needed</h8>
+          {% for ssid in ssid_list %}
+            {{ ssid}} <br>
+          {% endfor %}
           <hr>
           <h3>Wifi network name</h3>
 			<input class="form-control" type="text" id="wifi_ssid" placeholder="{{wifi_ssid}}">

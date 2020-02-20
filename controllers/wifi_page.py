@@ -1,9 +1,11 @@
 import tools
 from flask import Flask, render_template
 from flask import request
+import wifi_client
 
 
 def show():
+    ssid_list = wifi_client.ssid_list()
     template_data = {
         'content': tools.render_page("wifi-settings",
                                {
@@ -11,6 +13,7 @@ def show():
                                 'wifi_wpa2': tools.get_config('wifi_wpa2'),
                                 "alert": alert()[1],
                                 "alert_type": alert()[0],
+                                "ssid_list": wifi_client.ssid_list()
                                })
     }
     return render_template('main.html', **template_data)
