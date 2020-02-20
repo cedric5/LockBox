@@ -21,4 +21,3 @@ def alert():
     else:
         return ["", ""]
 
-

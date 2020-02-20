@@ -73,15 +73,18 @@ def get_next_friday():
     return datetime.datetime(next_friday.year, next_friday.month, next_friday.day, hour=18, minute=0, second=0)
 
 def create_settings():
-    print('creating settings.json')
-    f = open("settings.json", "x")
-    f.close()
-    f = open("settings.json", "w+")
-    f.write("{\"close_time\": \"\", \"open_time\": \"\", \"wifi_wpa2\": \"JEEEJ\", \"mode\": \"manual\", "
-            "\"wifi_strength\": 5, \"wifi_ssid\": \"EchtGoeieWifiMaat\", \"box_status\": \"open\"}")
-    f.close()
+    try:
+        print('creating settings.json')
+        f = open("settings.json", "x")
+        f.close()
+        f = open("settings.json", "w+")
+        f.write("{\"close_time\": \"\", \"open_time\": \"\", \"wifi_wpa2\": \"JEEEJ\", \"mode\": \"manual\", "
+                "\"wifi_strength\": 5, \"wifi_ssid\": \"EchtGoeieWifiMaat\", \"box_status\": \"open\"}")
+        f.close()
+    except IOError:
+        print('settings file not accesible ')
 
 def recover_config():
-    os.system("sudo rm -f settings.json")
+    os.system("rm -f settings.json")
     create_settings()
     #os.system('sudo shutdown -r now')

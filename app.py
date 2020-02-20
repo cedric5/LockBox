@@ -6,6 +6,7 @@ import tools as tools
 import timer as timer
 from flask import Flask
 from flask import request
+import wifi_client
 
 import controllers.wifi_page as wifi_page_controller
 import controllers.open_close_page as open_close_page_controller
@@ -111,6 +112,4 @@ def open_box_google():
     return action
 
 
-if not os.path.exists('settings.json'):
-    tools.create_settings()
 timer.start_timer()
