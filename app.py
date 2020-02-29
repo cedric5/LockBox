@@ -96,8 +96,8 @@ def set_times():
 
 @app.route("/set-wifi")
 def set_wifi():
-    wifi_client.connect(request.args.get('wifi_ssid'),request.args.get('wpa2'))
-    tools.write_config("wifi_ssid", request.args.get('wifi_ssid'))
+    wifi_client.connect(request.args.get('ssid'),request.args.get('wpa2'))
+    tools.write_config("wifi_ssid", request.args.get('ssid'))
     tools.write_config("wpa2", request.args.get('wpa2'))
     return "Set wifi settings saved!"
 
