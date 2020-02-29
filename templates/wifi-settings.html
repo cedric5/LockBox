@@ -9,11 +9,11 @@
 
     <hr>
     <h3>Wifi network name</h3>
-    <label for="sel1">Select list (select one):</label>
-    <select class="form-control" id="sel1">
-          {% for ssid in ssid_list %}
-      <option>{{ ssid }}</option>
-    {% endfor %}
+    <label for="wifi_ssid">Select list (select one):</label>
+    <select class="form-control" id="wifi_ssid">
+        {% for ssid in ssid_list %}
+        <option>{{ ssid }}</option>
+        {% endfor %}
     </select>
     <!--<input class="form-control" type="text" id="wifi_ssid" placeholder="{{wifi_ssid}}">-->
     <hr>
@@ -48,11 +48,19 @@
 <script type=text/javascript>
     $(function () {
         $('button#save').bind('click', function () {
-            $('#exampleModal').modal('show');
-            $.getJSON('/set-wifi?ssid=' + open_time.trim() + '&wpa2=' + close_time.trim(),
-                function (data) {
-                    //do nothing
-                });
+            var ssid = $("#wifi_ssid").val();
+            var wpa = $("#wifi_wpa2").val();
+            // $('#exampleModal').modal('show');
+
+            $.ajax('/set-wifi?ssid=' + ssid + '&wpa2=' + wpa, {
+                success: function (response) {
+                    console.log(response)
+                    //changed original code from ".html(response)" to ".html(response.sentence)"
+                    $('#alert').html(response).fadeIn();
+                    $('#alert').show();
+
+                }
+            })
             return false;
         });
     });
