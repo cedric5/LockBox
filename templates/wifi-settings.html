@@ -1,54 +1,59 @@
 <div class="container-fluid">
-        <h1 class="mt-1">Wifi settings</h1>
-          {% if alert  %}
-          <div class="alert alert-{{alert_type}}" role="alert">
-            {{ alert }}
-          </div>
-          {% endif %}
-        <h8>For these changes to take effect you a reboot of the LockBox is needed</h8>
+    <h1 class="mt-1">Wifi settings</h1>
+    {% if alert %}
+    <div class="alert alert-{{alert_type}}" role="alert">
+        {{ alert }}
+    </div>
+    {% endif %}
+    <h8>For these changes to take effect you a reboot of the LockBox is needed</h8>
+
+    <hr>
+    <h3>Wifi network name</h3>
+    <label for="sel1">Select list (select one):</label>
+    <select class="form-control" id="sel1">
           {% for ssid in ssid_list %}
-            {{ ssid}} <br>
-          {% endfor %}
-          <hr>
-          <h3>Wifi network name</h3>
-			<input class="form-control" type="text" id="wifi_ssid" placeholder="{{wifi_ssid}}">
-          <hr>
-          <h3>Wifi network password</h3>
-				<input class="form-control" type="text" id="wifi_wpa2" placeholder="{{wifi_wpa2}}">
-          <hr>
-          <button type="button" id="save" class="btn btn-success btn-block">Save</button>
+      <option>{{ ssid }}</option>
+    {% endfor %}
+    </select>
+    <!--<input class="form-control" type="text" id="wifi_ssid" placeholder="{{wifi_ssid}}">-->
+    <hr>
+    <h3>Wifi network password</h3>
+    <input class="form-control" type="text" id="wifi_wpa2" placeholder="{{wifi_wpa2}}">
+    <hr>
+    <button type="button" id="save" class="btn btn-success btn-block">Save</button>
 </div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Wifi settings saved</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        The LockBox has to reboot for these changes to have effect. <br> Reboot now?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <a href="/reboot-device-loader" class="btn btn-danger ">Reboot</a>
-      </div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Wifi settings saved</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                The LockBox has to reboot for these changes to have effect. <br> Reboot now?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a href="/reboot-device-loader" class="btn btn-danger ">Reboot</a>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 </div>
 
 <script type=text/javascript>
-        $(function() {
-          $('button#save').bind('click', function() {
-                $('#exampleModal').modal('show');
+    $(function () {
+        $('button#save').bind('click', function () {
+            $('#exampleModal').modal('show');
             $.getJSON('/set-wifi?ssid=' + open_time.trim() + '&wpa2=' + close_time.trim(),
-                function(data) {
-              //do nothing
-            });
+                function (data) {
+                    //do nothing
+                });
             return false;
-          });
         });
+    });
 </script>

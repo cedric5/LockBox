@@ -15,16 +15,14 @@ def disconnect():
 
 
 def ssid_list():
-    p = subprocess.Popen("sudo iwlist wlan0 scan | grep 'ESSID'", stdout=subprocess.PIPE, shell=True)
+    p = subprocess.Popen("iwlist wlan0 scan | grep 'ESSID'", stdout=subprocess.PIPE, shell=True)
 
     (output, err) = p.communicate()
     ssid_arr = output.splitlines()
     for index, id in enumerate(ssid_arr):
-        id = id.split(':')
+        id = id.decode().split(':')
         id = id[1].replace('"', '')
-        ssid_arr[index] = id.rstrip()  # remove the newline
-
+        ssid_arr[index] = id.rstrip()  # remove the newline\
     return ssid_arr
-
 
 
