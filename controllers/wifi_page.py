@@ -19,7 +19,7 @@ def show():
     return render_template('main.html', **template_data)
 
 def alert():
-    if  tools.has_internet_connection():
+    if not tools.has_internet_connection():
         return ["info", "Your box is not connected to your wifi network please setup you wifi connection below."]
     else:
         return ["", ""]
